@@ -1,10 +1,12 @@
 from django.http import HttpResponseRedirect
 from django.views.generic import CreateView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.decorators import login_required
 from .forms import UploadManifestForm
 from .models import Clients
 import pandas as pd
 
+@login_required()
 class UploadManifest(SuccessMessageMixin, CreateView):
     template_name = 'clients/ManifestUpload.html'
     form_class = UploadManifestForm

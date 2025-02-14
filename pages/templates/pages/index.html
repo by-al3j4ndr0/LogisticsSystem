@@ -3,6 +3,27 @@
 
 
 {% block content %}
+
+
+{% if user.profile.is_approved %}
+{% cache 500 username %}
+<div class="header mt-md-2">
+    <div class="header-body">
+
+      <!-- Title -->
+      <h1 class="header-title">
+         {{ user.profile.warehouse }}
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="header-subtitle">
+        Welcome - {{ user }}
+      </p>
+
+    </div>
+  </div>
+{% endcache %}
+{% block content %}
   <div class="row">
     <div class="col-12 col-lg-6 col-xl">
       

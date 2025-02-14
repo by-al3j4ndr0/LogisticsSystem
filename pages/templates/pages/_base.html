@@ -23,13 +23,13 @@
     </title>
   </head>
 
-  <body>
+ <body>
 
-  
+
 
     {% block comment %}
     {% if messages %}
-    {% for message in messages %}  
+    {% for message in messages %}
     <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin: 0;border-radius: 0;text-align: center;
 ">
                     <strong></strong> {{message}}
@@ -46,6 +46,32 @@
           <button class="navbar-toggler mr-auto" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
+
+
+          <!-- User -->
+          <div class="navbar-user">
+
+
+            <!-- Dropdown -->
+            <div class="dropdown">
+
+              <!-- Toggle -->
+              <div class="avatar-img rounded-circle">
+                <i class="fe fe-user">
+
+                </i>
+              </div>
+
+
+              <!-- Menu -->
+              <div class="dropdown-menu dropdown-menu-right">
+                <a href="{% url 'account_change_password' %}" class="dropdown-item">Change Password</a>
+                <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
+              </div>
+
+            </div>
+
+          </div>
 
           <!-- Collapse -->
           <div class="collapse navbar-collapse mr-auto order-lg-first" id="navbar">
