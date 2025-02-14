@@ -1,0 +1,72 @@
+{% extends 'pages/_base.html' %}
+{% load cache %}
+
+
+{% block content %}
+  <div class="row">
+    <div class="col-12 col-lg-6 col-xl">
+      
+      <!-- Card -->
+      <div class="card">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col">
+
+              <!-- Title -->
+              <h6 class="card-title text-uppercase text-muted mb-2">
+                Total en transferencia
+              </h6>
+              
+<!--              &lt;!&ndash; Heading &ndash;&gt;-->
+<!--              <span class="h2 mb-0">-->
+<!--                {{ transfer_count }}-->
+<!--              </span>-->
+
+            </div>
+            <div class="col-auto">
+              
+              <!-- Icon -->
+              <span class="h2 fe fe-tag text-muted mb-0"></span>
+
+            </div>
+          </div> <!-- / .row -->
+
+        </div>
+      </div>
+        
+    </div>
+  </div>
+<div class="row">
+    <div class="col-12 col-lg-6 col-xl">
+
+      <!-- Card -->
+      <div class="card">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col">
+
+              <!-- Title -->
+              <h6 class="card-title text-uppercase text-muted mb-2">
+                Total en almacen
+              </h6>
+
+              <!-- Heading -->
+              <span class="h2 mb-0">
+                {{ warehouse_count }}
+              </span>
+
+            </div>
+            <div class="col-auto">
+
+              <!-- Icon -->
+              <span class="h2 fe fe-tag text-muted mb-0"></span>
+
+            </div>
+          </div> <!-- / .row -->
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+{% endblock content %}

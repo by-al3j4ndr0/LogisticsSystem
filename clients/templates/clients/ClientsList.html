@@ -1,0 +1,53 @@
+{% extends 'pages/_base.html' %}
+
+{% block content %}
+<div class="header mt-md-2">
+    <div class="header-bodyw">
+
+      <!-- Title -->
+      <h1 class="header-title">
+         Transferencias
+
+      </h1>
+      <h2 class="text-muted nav-item mb-0">
+        <a href="{% url 'addTransference' %}">
+          Agregar
+        </a>
+      </h2>
+    </div>
+  </div>
+
+  <div class="table-responsive" data-toggle="lists" data-options='{"valueNames": ["tables-row", "tables-name",
+      "tables-date", "tables-print"]}'>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">
+            <a href="#" class="text-muted sort" data-sort="tables-row">ID</a>
+          </th>
+          <th scope="col">
+            <a href="#" class="text-muted sort" data-sort="tables-name">Nombre</a>
+          </th>
+          <th scope="col">
+              <a href="#" class="text-muted sort" data-sort="tables-date">Fecha</a>
+          </th>
+          <th scope="col">
+            <a href="#" class="text-muted" >Imprimir</a>
+          </th>
+        </tr>
+      </thead>
+      <tbody class="list">
+        {% for transference in transfer %}
+        <tr>
+          <th scope="row" class="tables-row">{{ transference.id }}</th>
+          <td class="tables-first">{{ transference.name }}</td>
+          <td class="tables-date">{{ transference.date }}</td>
+          <td class="tables-handle text-center"><a href=""><i class="fe fe-edit-2"></i></a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+    
+        
+{% endblock content %}

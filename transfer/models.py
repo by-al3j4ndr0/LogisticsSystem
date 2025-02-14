@@ -4,7 +4,7 @@ import os
 from django.db import models
 
 def rename_file(instance, filename):
-    path = ""
+    path = "transferencias/"
     format = "transference-" + str(instance.id) + ".xlsx"
     return os.path.join(path, format)
 
