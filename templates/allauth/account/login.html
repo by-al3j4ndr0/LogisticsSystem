@@ -1,7 +1,11 @@
-{% extends "base.html" %}
+{% extends "account/base.html" %}
 {% load widget_tweaks %}
 
+{% load i18n %}
 {% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
 
 {% if messages %}
         {% for message in messages %}
@@ -13,7 +17,7 @@
 {% block content %}
 
 
-<h1>Sign In</h1>
+<h1>{% trans "Sign In" %}</h1>
 
 {% get_providers as socialaccount_providers %}
 
