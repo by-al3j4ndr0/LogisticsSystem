@@ -23,7 +23,6 @@
     </div>
   </div>
 {% endcache %}
-{% block content %}
   <div class="row">
     <div class="col-12 col-lg-6 col-xl">
       
@@ -90,4 +89,37 @@
 
     </div>
   </div>
+{% else %}
+
+      <div class="row justify-content-center">
+        <div class="my-5">
+
+          <div class="text-center">
+
+            <!-- Preheading -->
+            <h6 class="text-uppercase text-muted mb-4">
+              Aproval error
+            </h6>
+
+            <!-- Heading -->
+            <h1 class="display-4 mb-3">
+              Your account has not been approved.💔
+            </h1>
+
+            <!-- Subheading -->
+            <p class="text-muted mb-4">
+              You might have to contact your administrator.
+            </p>
+
+<!--            &lt;!&ndash; Button &ndash;&gt;-->
+<!--            <a href="index.html" class="btn btn-lg btn-primary">-->
+
+<!--            </a>-->
+
+          </div>
+
+        </div>
+      </div> <!-- / .row -->
+  <h1></h1>
+{% endif %}
 {% endblock content %}

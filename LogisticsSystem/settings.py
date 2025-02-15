@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'widget_tweaks',
     'users.apps.UsersConfig',
+    'allauth_ui',
+    'slippers',
 ]
 
 MIDDLEWARE = [
@@ -66,7 +68,7 @@ ROOT_URLCONF = 'LogisticsSystem.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,6 +80,8 @@ TEMPLATES = [
         },
     },
 ]
+
+ALLAUTH_UI_THEME = "light"
 
 WSGI_APPLICATION = 'LogisticsSystem.wsgi.application'
 
