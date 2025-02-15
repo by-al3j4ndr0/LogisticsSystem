@@ -1,11 +1,16 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
+from django.utils.decorators import method_decorator
 from django.views.generic import CreateView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.decorators import login_required
 from .forms import UploadManifestForm
 from .models import Clients
 import pandas as pd
 
-class UploadManifest(SuccessMessageMixin, CreateView):
+
+@method_decorator(login_required, name='dispatch')
+class UploadManifest(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'clients/ManifestUpload.html'
     form_class = UploadManifestForm
     success_url = "/clients"

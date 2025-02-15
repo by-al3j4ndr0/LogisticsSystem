@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import CreateView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.decorators import login_required
 import pandas as pd
 
 from .models import Transference
@@ -9,6 +10,7 @@ from .forms import TransferenceCreationForm
 from clients.models import Clients
 from warehouse.models import Warehouse
 
+@login_required()
 def CachedProductListView(request):
     transfer = Transference.objects.all().order_by('-date')
     context = {
