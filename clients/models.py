@@ -14,6 +14,7 @@ class Clients(models.Model):
     province = models.TextField(verbose_name="Provincia")
     city = models.TextField(verbose_name="Provincia")
     tariff = models.FloatField(verbose_name="Arancel")
+    status = models.TextField(verbose_name="Estado", default="Enviado")
 
     def __str__(self):
         return self.hbl

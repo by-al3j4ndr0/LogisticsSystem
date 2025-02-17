@@ -1,6 +1,8 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.views.generic import CreateView
+from django.utils.decorators import method_decorator
+from django.views.generic import CreateView, ListView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.decorators import login_required
 import pandas as pd
@@ -10,13 +12,18 @@ from .forms import TransferenceCreationForm
 from clients.models import Clients
 from warehouse.models import Warehouse
 
-@login_required()
-def CachedProductListView(request):
+@method_decorator(login_required, name='dispatch')
+def CachedTransferenceListView(request):
     transfer = Transference.objects.all().order_by('-date')
     context = {
         'transfer': transfer
     }
     return render(request, 'transfer/transfer_list.html', context)
+
+class TransferenceListView(ListView, LoginRequiredMixin):
+    template_name = "transfer/transfer_list.html"
+    queryset = Transference.objects.all().order_by('-date')
+    context_object_name = "transfer"
 
 class TransferenceCreationView(SuccessMessageMixin, CreateView):
     template_name = 'transfer/TransferCreation.html'
