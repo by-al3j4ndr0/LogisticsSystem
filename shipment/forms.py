@@ -4,10 +4,9 @@ from .models import Shipment
 from warehouse.models import Warehouse
 
 class ShipmentCreationForm(ModelForm):
-    clients = forms.ModelChoiceField(
-        queryset=Warehouse.objects.all().values(),
+    clients = forms.ModelMultipleChoiceField(
+        queryset=Warehouse.objects.all(),
         required=False,
-        empty_label=None,
         widget=forms.SelectMultiple,
     )
 

@@ -57,8 +57,8 @@
                     <div class="form-group">
                                   <div class="form-group">
                                       <span class="input-group-addon">
-                                        <i class="fa fa-th-list"></i>
-                                          {% render_field form.clients|attr:"multiple:multiple"|attr:"data-plugin-multiselect"|add_class:'form-control'|add_error_class:"is-invalid" %}
+                                          <label>{{ form.clients.label }}</label>
+                                          {% render_field form.clients|add_class:'form-control'|add_error_class:"is-invalid" %}
                                           <div class="invalid-feedback">
                                               {{ form.clients.errors }}
                                           </div>
@@ -67,8 +67,9 @@
                                   </div>
                     </div>
 
+                    <input type="submit" class="primaryAction btn btn-lg btn-block btn-primary mb-3" value="Crear">
                  {% endwith %}
                 </form>
 
-              <input type="submit" class="primaryAction btn btn-lg btn-block btn-primary mb-3" value="Crear">
+
 {% endblock content %}

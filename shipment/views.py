@@ -1,11 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, ListView, DeleteView, UpdateView
 
 from shipment.forms import ShipmentCreationForm
 from shipment.models import Shipment
+from warehouse.models import Warehouse
 
 @method_decorator(login_required, name='dispatch')
 class ShipmentCreationView(SuccessMessageMixin, CreateView):
@@ -13,6 +15,12 @@ class ShipmentCreationView(SuccessMessageMixin, CreateView):
     form_class = ShipmentCreationForm
     success_url = "/shipments"
     success_message = "Shipment was created successfully"
+
+    def form_valid(self, form):
+        self.object = form.save()
+        for client in self.object.clients.all():
+            print(client.hbl)
+        return HttpResponseRedirect(self.get_success_url())
 
 class ShipmentListView(ListView, LoginRequiredMixin):
     template_name = "shipment/shipment_list.html"

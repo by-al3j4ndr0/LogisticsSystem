@@ -21,7 +21,7 @@ class Clients(models.Model):
 
 def rename_file(instance, filename):
     path = "manifiestos/"
-    format = "manifest-" + str(instance.id) + ".xlsx"
+    format = "manifest-%d.xlsx" % instance.id
     return os.path.join(path, format)
 
 class Manifest(models.Model):

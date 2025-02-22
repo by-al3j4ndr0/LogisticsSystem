@@ -5,7 +5,7 @@ from django.db import models
 
 def rename_file(instance, filename):
     path = "transferencias/"
-    format = "transference-" + str(instance.id) + ".xlsx"
+    format = "transference-%d.xlsx" % instance.id
     return os.path.join(path, format)
 
 class Transference(models.Model):
