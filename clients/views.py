@@ -4,12 +4,45 @@ from django.utils.decorators import method_decorator
 from django.views.generic import CreateView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.decorators import login_required
+from django_tables2 import SingleTableMixin
+from django_filters.views import FilterView
+
 from .forms import UploadManifestForm
 from .models import Clients
+from .tables import ClientsHTMxTable
+from .filter import ClientsFilter
+
 import pandas as pd
 
-
 @method_decorator(login_required, name='dispatch')
+class ClientsHTMxTableView(SingleTableMixin, FilterView):
+    table_class = ClientsHTMxTable
+    queryset = Clients.objects.all()
+    filterset_class = ClientsFilter
+    paginate_by = 20
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = ClientsFilter(
+            self.request.GET,
+            queryset=queryset,
+        )
+        return self.filterset.qs
+
+    def get_template_names(self):
+        if self.request.htmx:
+            template_name = "clients/clients_table_partial.html"
+        else:
+            template_name = "clients/clients_table_htmx.html"
+
+        return template_name
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        query = self.request.GET.get('query')
+        context['form'] = self.filterset.form
+        return context
+
 class UploadManifest(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'clients/ManifestUpload.html'
     form_class = UploadManifestForm

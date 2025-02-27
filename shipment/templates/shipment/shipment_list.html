@@ -23,7 +23,7 @@
   </div>
 
   <div class="table-responsive" data-toggle="lists" data-options='{"valueNames": ["tables-name", "tables-driver",
-  "tables-date", "tables-delete", "tables-edit"]}'>
+  "tables-date", "tables-delete", "tables-edit", "tables-print"]}'>
     <table class="table">
       <thead>
         <tr>
@@ -42,6 +42,9 @@
           <th scope="col">
             <a href="#" class="text-muted" >Update</a>
           </th>
+          <th scope="col">
+            <a href="#" class="text-muted" >Print</a>
+          </th>
         </tr>
       </thead>
       <tbody class="list">
@@ -50,8 +53,9 @@
           <td class="tables-first">{{ shipment.name }}</td>
             <td class="tables-first">{{ shipment.driver }}</td>
           <td class="tables-last">{{ shipment.date }}</td>
-          <td class="tables-handle text-center"><a href=""><i class="fe fe-trash"></i></a></td>
-          <td class="tables-handle text-center"><a href=""><i class="fe fe-edit-2"></i></a></td>
+          <td class="tables-handle text-center"><a href="{% url 'delete-shipment' shipment.id %}"><i class="fe fe-trash"></i></a></td>
+          <td class="tables-handle text-center"><a href="{% url 'edit-shipment' shipment.id %}"><i class="fe fe-edit-2"></i></a></td>
+          <td class="tables-handle text-center"><a href="{% url 'print-shipment' shipment.id %}"><i class="fe fe-printer"></i></a></td>
         </tr>
         {% endfor %}
       </tbody>

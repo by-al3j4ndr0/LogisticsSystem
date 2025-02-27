@@ -14,6 +14,14 @@ class WarehouseHTMxTableView(SingleTableMixin, FilterView):
     filterset_class = WarehouseFilter
     paginate_by = 20
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = WarehouseFilter(
+            self.request.GET,
+            queryset=queryset,
+        )
+        return self.filterset.qs
+
     def get_template_names(self):
         if self.request.htmx:
             template_name = "warehouse/warehouse_table_partial.html"
@@ -21,3 +29,9 @@ class WarehouseHTMxTableView(SingleTableMixin, FilterView):
             template_name = "warehouse/warehouse_table_htmx.html"
 
         return template_name
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        query = self.request.GET.get('query')
+        context['form'] = self.filterset.form
+        return context
