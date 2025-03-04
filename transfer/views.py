@@ -1,6 +1,7 @@
 import os
 from io import BytesIO
 import pandas as pd
+from django_pandas.io import read_frame
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect, HttpResponse, FileResponse
@@ -21,7 +22,8 @@ from LogisticsSystem.settings import MEDIA_ROOT
 from .models import Transference
 from .forms import TransferenceCreationForm
 from clients.models import Clients
-from warehouse.models import Warehouse
+from warehouse.models import Warehouse, WarehouseSimplified
+
 
 @method_decorator(login_required, name='dispatch')
 class TransferenceListView(ListView, LoginRequiredMixin):
@@ -44,6 +46,7 @@ class TransferenceCreationView(SuccessMessageMixin, CreateView):
 
     def form_valid(self, form):
         self.object = form.save()
+        transfer_id = self.object.id
         data = pd.read_excel(self.object.file)
         df = pd.DataFrame(data)
 
@@ -58,9 +61,37 @@ class TransferenceCreationView(SuccessMessageMixin, CreateView):
                     city=Clients.objects.filter(hbl=df.at[i, 'cod_envio']).values('city'),
                     state=Clients.objects.filter(hbl=df.at[i, 'cod_envio']).values('province'),
                     tariff=Clients.objects.filter(hbl=df.at[i, 'cod_envio']).values('tariff'),
+                    transference_id=transfer_id,
                 )
                 Clients.objects.filter(hbl=df.at[i, 'cod_envio']).update(status='Almacen')
 
+        # Create the simplified model for the shipments
+        clients_data = Warehouse.objects.filter(transference_id=transfer_id)
+        clients_data_df = read_frame(clients_data)
+
+        i = 0
+        while i < len(clients_data_df):
+            quantity = 1
+            tariff = clients_data_df.at[i, 'tariff']
+            element = clients_data_df.at[i, 'ci']
+            for j in range(i + 1, len(clients_data_df)):
+                if element in clients_data_df.loc[j, 'ci']:
+                    quantity = quantity + 1
+
+            WarehouseSimplified.objects.create(
+                name=clients_data_df.at[i, 'name'],
+                ci=clients_data_df.at[i, 'ci'],
+                phone_number=clients_data_df.at[i, 'phone_number'],
+                address=clients_data_df.at[i, 'address'],
+                city=clients_data_df.at[i, 'city'],
+                state=clients_data_df.at[i, 'state'],
+                tariff=tariff,
+                quantity=quantity,
+                transference_id=transfer_id,
+            )
+
+            clients_data_df.reset_index(drop=True, inplace=True)
+            i += 1
 
         return HttpResponseRedirect(self.get_success_url())
 

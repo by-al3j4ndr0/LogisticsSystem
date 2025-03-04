@@ -99,8 +99,10 @@ class UploadManifest(LoginRequiredMixin, SuccessMessageMixin, CreateView):
                 [str(new_df.at[i, 'calle']), "e/", str(new_df.at[i, 'entrecalle1']), "y",
                  str(new_df.at[i, 'entrecalle2']), "#", str(new_df.at[i, 'numero']), ".",
                  str(new_df.at[i, 'reparto'])])
-            clients_df.at[i, 'provincia'] = new_df.at[i, 'provincia']
-            clients_df.at[i, 'municipio'] = new_df.at[i, 'municipio']
+            provincia_splitted = str.split(new_df.at[i, 'provincia'], "/")
+            clients_df.at[i, 'provincia'] = provincia_splitted[0]
+            municipio_splitted = str.split(new_df.at[i, 'municipio'], "/")
+            clients_df.at[i, 'municipio'] = municipio_splitted[0]
             clients_df.at[i, 'arancel'] = 0
 
         for index, row in clients_df.iterrows():
