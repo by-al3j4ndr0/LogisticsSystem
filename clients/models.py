@@ -14,13 +14,14 @@ class Clients(models.Model):
     province = models.TextField(verbose_name="Provincia")
     city = models.TextField(verbose_name="Provincia")
     tariff = models.FloatField(verbose_name="Arancel")
+    status = models.TextField(verbose_name="Estado", default="Enviado")
 
     def __str__(self):
         return self.hbl
 
 def rename_file(instance, filename):
     path = "manifiestos/"
-    format = "manifest-" + str(instance.id) + ".xlsx"
+    format = "manifest-%s.xlsx" % instance.id
     return os.path.join(path, format)
 
 class Manifest(models.Model):

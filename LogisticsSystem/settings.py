@@ -50,6 +50,11 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'allauth_ui',
     'slippers',
+    'django_tables2',
+    'django_htmx',
+    'django_filters',
+    'crispy_forms',
+    'crispy_bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -61,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'django_htmx.middleware.HtmxMiddleware',
 ]
 
 ROOT_URLCONF = 'LogisticsSystem.urls'
@@ -85,6 +91,9 @@ ALLAUTH_UI_THEME = "light"
 
 WSGI_APPLICATION = 'LogisticsSystem.wsgi.application'
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap4'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -187,9 +196,9 @@ LOGOUT_REDIRECT_URL = "home"
 # CACHES = {
 #     "default": {
 #         "BACKEND": "django_redis.cache.RedisCache",
-#         "LOCATION": "redis://127.0.0.1:8000/1",
+#         "LOCATION": "redis://127.0.0.1:6379/1",
 #         "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
-#         "KEY_PREFIX": "wms",
+#         "KEY_PREFIX": "apt",
 #     }
 # }
 

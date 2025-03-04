@@ -1,0 +1,41 @@
+{# product/templates/warehouse_table_htmx.html #}
+{% extends "pages/_base.html" %}
+
+{% load render_table from django_tables2 %}
+{% load i18n %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="header mt-md-2">
+        <div class="header-body">
+
+          <!-- Title -->
+          <h1 class="header-title">
+             Clientes
+          </h1>
+            <p class="header-subtitle">
+         <h2 class="text-muted nav-item mb-0">
+        <a href="{% url 'uploadManifest'%}">
+          Agregar
+        </a>
+      </h2>
+      </p>
+        </div>
+    </div>
+
+    <form hx-get="{% url 'clients' %}"
+    hx-target="div.table-container"
+    hx-swap="outerHTML"
+    hx-trigger="change" >
+    {{ form.name|as_crispy_field }}
+    </form>
+
+    {# Progress indicator #}
+    <div class="progress">
+        <div class="indeterminate"></div>
+    </div>
+
+    {# The actual table #}
+    {% render_table table %}
+{% endblock %}

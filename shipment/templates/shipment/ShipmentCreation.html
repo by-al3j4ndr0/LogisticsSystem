@@ -12,7 +12,7 @@
                           <!-- Title -->
                           <h1 class="header-title">
                                   <i class="fe fe-user"></i>
-                            Create A New Shipment
+                            Crear nueva entrega
                           </h1>
 
                         </div>
@@ -26,46 +26,50 @@
 
                     <div class="form-group">
                                   <div class="form-group">
-                                      <label for="{{ form.customer.id_for_label }}">{{ form.customer.label }}</label>
-                                      {% render_field form.customer|add_class:'form-control'|add_error_class:"is-invalid" %}
+                                      <label>{{ form.name.label }}</label>
+                                      {% render_field form.name|attr:"rows:1"|add_class:'form-control'|add_error_class:"is-invalid" %}
                                       <div class="invalid-feedback">
-                                          {{ form.customer.errors }}
+                                          {{ form.name.errors }}
                                       </div>
                                   </div>
                     </div>
 
                     <div class="form-group">
                                   <div class="form-group">
-                                      <label for="{{ form.destination.id_for_label }}">{{ form.destination.label }}</label>
-                                      {% render_field form.destination|add_class:'form-control'|add_error_class:"is-invalid" %}
+                                      <label>{{ form.driver.label }}</label>
+                                      {% render_field form.driver|add_class:'form-control'|add_error_class:"is-invalid" %}
                                       <div class="invalid-feedback">
-                                          {{ form.destination.errors }}
+                                          {{ form.driver.errors }}
                                       </div>
                                   </div>
                     </div>
 
                     <div class="form-group">
                                   <div class="form-group">
-                                      <label for="{{ form.product.id_for_label }}">{{ form.product.label }}</label>
-                                      {% render_field form.product|add_class:'form-control'|add_error_class:"is-invalid" %}
+                                      <label>{{ form.vehicle.label }}</label>
+                                      {% render_field form.vehicle|add_class:'form-control'|add_error_class:"is-invalid" %}
                                       <div class="invalid-feedback">
-                                          {{ form.product.errors }}
+                                          {{ form.vehicle.errors }}
                                       </div>
                                   </div>
                     </div>
 
                     <div class="form-group">
                                   <div class="form-group">
-                                      <label for="{{ form.quantity.id_for_label }}">{{ form.quantity.label }}</label>
-                                      {% render_field form.quantity|add_class:'form-control'|add_error_class:"is-invalid" %}
-                                      <div class="invalid-feedback">
-                                          {{ form.quantity.errors }}
-                                      </div>
+                                      <span class="input-group-addon">
+                                          <label>{{ form.clients.label }}</label>
+                                          {% render_field form.clients|add_class:'form-control'|add_error_class:"is-invalid" %}
+                                          <div class="invalid-feedback">
+                                              {{ form.clients.errors }}
+                                          </div>
+                                      </span>
+
                                   </div>
                     </div>
 
+                    <input type="submit" class="primaryAction btn btn-lg btn-block btn-primary mb-3" value="Crear">
                  {% endwith %}
                 </form>
 
-              <input type="submit" class="primaryAction btn btn-lg btn-block btn-primary mb-3" value="Create Shipment">
+
 {% endblock content %}

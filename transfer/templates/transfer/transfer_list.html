@@ -2,18 +2,20 @@
 
 {% block content %}
 <div class="header mt-md-2">
-    <div class="header-bodyw">
+    <div class="header-body">
 
       <!-- Title -->
       <h1 class="header-title">
          Transferencias
 
       </h1>
-      <h2 class="text-muted nav-item mb-0">
-        <a href="{% url 'addTransference' %}">
+      <p class="header-subtitle">
+         <h2 class="text-muted nav-item mb-0">
+        <a href="{% url 'add-transference'%}">
           Agregar
         </a>
       </h2>
+      </p>
     </div>
   </div>
 
@@ -42,7 +44,7 @@
           <th scope="row" class="tables-row">{{ transference.id }}</th>
           <td class="tables-first">{{ transference.name }}</td>
           <td class="tables-date">{{ transference.date }}</td>
-          <td class="tables-handle text-center"><a href=""><i class="fe fe-edit-2"></i></a></td>
+          <td class="tables-handle text-center"><a href="{% url 'export-transference' transference.id %}" target="_blank"><i class="fe fe-printer"></i></a></td>
         </tr>
         {% endfor %}
       </tbody>

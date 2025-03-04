@@ -1,0 +1,48 @@
+{# templates/tables/bootstrap_htmx.html #}
+{% extends "django_tables2/bootstrap4.html" %}
+
+{% load django_tables2 %}
+{% load i18n %}
+
+{% block table.thread %}
+  {% if table.show_header %}
+      <thead {{ table.attrs.thread.as_html }}>
+      <tr>
+          {% for column in table.columns %}
+              <th {{ column.attrs.th.as_html }}
+                  hx-get="{% querystring table.prefixed_order_by_field=column.order_by_alias.next %}"
+                  hx-trigger="load"
+                  hx-target="div.table-container"
+                  hx-swap="outerHTML"
+                  hx-indicator=".progress"
+                  style="cursor: pointer;">
+                  {{ column.header }}
+              </th>
+          {% endfor %}
+      </tr>
+      </thead>
+  {% endif %}
+{% endblock table.thread %}
+
+<div class="btn-group" role="group" aria-label="Item pagination">
+  {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-primary">&laquo;</a>
+  {% endif %}
+
+  {% for page_number in page_obj.paginator.page_range %}
+      {% if page_obj.number == page_number %}
+          <button class="btn-sm btn btn btn-primary active">
+
+              <span>{{ page_number }} <span class="sr-only">(current)</span></span>
+          </button>
+      {% else %}
+          <a href="?page={{ page_number }}" class="btn btn-outline-primary">
+              {{ page_number }}
+          </a>
+      {% endif %}
+  {% endfor %}
+
+  {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
+  {% endif %}
+</div>
